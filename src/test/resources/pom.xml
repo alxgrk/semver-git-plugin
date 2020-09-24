@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.alxgrk</groupId>
+    <artifactId>project-to-test</artifactId>
+    <version>${revision}</version>
+    <packaging>jar</packaging>
+    <name>Test MyMojo</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>de.alxgrk</groupId>
+                <artifactId>semver-git-maven-plugin</artifactId>
+                <version>0.1.0-SNAPSHOT</version>
+                <configuration>
+                    <dirtyMarker>dirt</dirtyMarker>
+                    <initialVersion>1.0.0</initialVersion>
+                    <snapshotSuffix>SNAP</snapshotSuffix>
+                    <tagPrefix>foo</tagPrefix>
+                    <branches>
+                        <branch>
+                            <regex>.+</regex>
+                            <incrementer>MINOR_INCREMENTER</incrementer>
+                            <formatter>$MAJOR.$MINOR.$PATCH+build.$COUNT.sha.$SHORT_COMMIT</formatter>
+                        </branch>
+                    </branches>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>setVersion</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
